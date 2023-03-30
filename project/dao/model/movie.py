@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
 from project.dao.model.director import Director
@@ -12,11 +12,11 @@ class Movie(models.Base):
     """
     __tablename__ = 'movies'
 
-    title = Column(String(100), nullable=False)
-    description = Column(String(100), nullable=False)
-    trailer = Column(String(100), nullable=False)
-    year = Column(String(100), nullable=False)
-    rating = Column(String(100), nullable=False)
+    title = Column(String(255), nullable=False)
+    description = Column(String(255), nullable=False)
+    trailer = Column(String(255), nullable=False)
+    year = Column(Integer, nullable=False)
+    rating = Column(Float, nullable=False)
 
     genre_id = Column(Integer, ForeignKey(Genre.id), nullable=False)
     genre = relationship("Genre")
