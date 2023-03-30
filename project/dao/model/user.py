@@ -13,8 +13,8 @@ class User(models.Base):
 
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(100), nullable=False)
-    name = Column(String(100), unique=True, nullable=False)
-    surname = Column(String(100))
+    name = Column(String(100), nullable=False)
+    surname = Column(String(100), nullable=False)
 
     favorite_genre = Column(Integer, ForeignKey(Genre.id))
     genre = relationship("Genre")
