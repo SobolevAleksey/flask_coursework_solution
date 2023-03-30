@@ -14,11 +14,11 @@ class Movie(models.Base):
 
     title = Column(String(100), nullable=False)
     description = Column(String(100), nullable=False)
-    trailer = Column(String(100), unique=True, nullable=False)
-    year = Column(String(100))
-    rating = Column(String(100))
+    trailer = Column(String(100), nullable=False)
+    year = Column(String(100), nullable=False)
+    rating = Column(String(100), nullable=False)
 
-    genre_id = Column(Integer, ForeignKey(Genre.id))
+    genre_id = Column(Integer, ForeignKey(Genre.id), nullable=False)
     genre = relationship("Genre")
-    director_id = Column(Integer, ForeignKey(Director.id))
+    director_id = Column(Integer, ForeignKey(Director.id), nullable=False)
     director = relationship("Director")
