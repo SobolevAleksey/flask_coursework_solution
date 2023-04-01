@@ -23,7 +23,7 @@ def create_app(config_obj):
     app = Flask(__name__)
     app.config.from_object(config_obj)
 
-    #CORS(app=app)
+    # CORS(app=app)
     db.init_app(app)
     api.init_app(app)
 
