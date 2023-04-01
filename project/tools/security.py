@@ -37,3 +37,5 @@ def get_email_from_token(data):
     data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=current_app.config['JWT_ALGORITHM'])
     email = data['email']
     return email
+
+

@@ -24,8 +24,8 @@ class BaseDAO(Generic[T]):
 
     def get_all(self, page: Optional[int] = None) -> List[T]:
         """
-        пагинация
-        """"
+        Пагинация
+        """
         stmt: BaseQuery = self._db_session.query(self.__model__)
         if page:
             try:
@@ -33,3 +33,4 @@ class BaseDAO(Generic[T]):
             except NotFound:
                 return []
         return stmt.all()
+
