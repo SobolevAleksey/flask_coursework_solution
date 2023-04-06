@@ -1,14 +1,14 @@
 from flask_restx import Namespace, Resource
 from flask import request
 from project.dao import movie
-from project.services import movies_service
+from project.container import movies_service
 from project.setup.api.parsers import page_parser, status_page_parser
 
 movie_ns = Namespace('movies')
 
 
 @movie_ns.route('/')
-class MovieView(Resource):
+class MoviesView(Resource):
     @movie_ns.expect(status_page_parser)
     # Декоратор который получает данные и проверяет их формат
     @movie_ns.marshal_with(movie, as_list=True, code=200, description='OK')
