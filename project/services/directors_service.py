@@ -1,12 +1,11 @@
 from typing import Optional
 
-from project.dao.base import BaseDAO
+from project.dao.director import DirectorsDAO
 from project.dao.model.director import Director
 from project.exceptions import ItemNotFound
 
-# Изменить на директорс ДАО - 24 мин
 class DirectorsService:
-    def __init__(self, dao: BaseDAO) -> None:
+    def __init__(self, dao: DirectorsDAO) -> None:
         self.dao = dao
 
     def get_item(self, pk: int) -> Director:
