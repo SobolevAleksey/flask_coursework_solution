@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource
 from flask import request, abort
-from project.services import users_service, auth_service
-from project.views import auth
+from project.container import users_service, auth_service
+from project.setup.api.models import auth, auth_result
 
 auth_ns = Namespace('auth')
 
@@ -19,7 +19,7 @@ class AuthView(Resource):
 class AuthsView(Resource):
 
     @auth_ns.expect(auth)
-    # @auth_ns.marshal_with(auth_result, code=200)
+    @auth_ns.marshal_with(auth_result, code=200)
     def post(self):
         data = request.json
         email = data.get('email', None)
