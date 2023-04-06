@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
 
-from project.dao import director
+from project.setup.api.models import director
 from project.container import directors_service
 from project.setup.api.parsers import page_parser
 
