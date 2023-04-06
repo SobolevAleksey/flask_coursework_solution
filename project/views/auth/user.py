@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
-from project.dao import user
-from project.services import users_service
+from project.setup.api.models import user
+from project.container import users_service
 
 user_ns = Namespace('user')
 
