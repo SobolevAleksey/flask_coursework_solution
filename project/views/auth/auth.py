@@ -16,7 +16,7 @@ class AuthView(Resource):
 
 
 @auth_ns.route('/login/')
-class AuthView(Resource):
+class AuthsView(Resource):
 
     @auth_ns.expect(auth)
     # @auth_ns.marshal_with(auth_result, code=200)
