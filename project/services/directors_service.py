@@ -4,7 +4,7 @@ from project.dao.base import BaseDAO
 from project.dao.model.director import Director
 from project.exceptions import ItemNotFound
 
-
+# Изменить на директорс ДАО - 24 мин
 class DirectorsService:
     def __init__(self, dao: BaseDAO) -> None:
         self.dao = dao
