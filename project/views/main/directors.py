@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource
 
 from project.dao import director
-from project.services import directors_service
+from project.container import directors_service
 from project.setup.api.parsers import page_parser
 
 director_ns = Namespace('directors')
