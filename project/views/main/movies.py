@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
 from flask import request
-from project.dao import movie
+from project.setup.api.models import movie
 from project.container import movies_service
 from project.setup.api.parsers import page_parser, status_page_parser
 
