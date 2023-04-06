@@ -1,12 +1,12 @@
 from typing import Optional
 
-from project.dao.base import BaseDAO
+from project.dao.genre import GenresDAO
 from project.dao.model.genre import Genre
 from project.exceptions import ItemNotFound
 
 
 class GenresService:
-    def __init__(self, dao: BaseDAO) -> None:
+    def __init__(self, dao: GenresDAO) -> None:
         self.dao = dao
 
     def get_item(self, pk: int) -> Genre:
