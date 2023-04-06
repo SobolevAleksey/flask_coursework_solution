@@ -8,7 +8,7 @@ director_ns = Namespace('directors')
 
 
 @director_ns.route('/')
-class DirectorView(Resource):
+class DirectorsView(Resource):
     @director_ns.expect(page_parser)
     # Декоратор который получает данные и проверяет их формат
     @director_ns.marshal_with(director, as_list=True, code=200, description='OK')
