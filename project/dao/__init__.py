@@ -1,16 +1,9 @@
-from project.dao.director import DirectorsDAO
-from project.dao.genre import GenresDAO
-from project.dao.movie import MoviesDAO
-from project.dao.user import UserDAO
+from .main import GenresDAO, MoviesDAO, DirectorsDAO
 
 __all__ = [
     'GenresDAO',
-    'DirectorsDAO',
     'MoviesDAO',
-    'UserDAO',
-
+    'DirectorsDAO'
 ]
-
-
 
 

@@ -1,39 +1,48 @@
 from flask_restx import Namespace, Resource
 from flask import request, abort
-from project.container import users_service, auth_service
-from project.setup.api.models import auth, auth_result
 
-auth_ns = Namespace('auth')
+from project.container import auth_service, user_service
+
+api = Namespace('auth', "Страница для регистрации нового пользователя,"
+                        "для его авторизации и обновления токена")
 
 
-@auth_ns.route('/register/')  # Регитсрация создание пользователя в БД
-class AuthView(Resource):
-    @auth_ns.expect(auth)
-    @auth_ns.response(201, description='OK')
+@api.route('/register/')
+class AuthRegister(Resource):
     def post(self):
-        users_service.create(request.json)
-        return "OK", 201
+        """
+        Регистрация нового пользователя
+        """
+        user_data = request.json
+        if ['email', 'password'] != list(user_data.keys()):
+            abort(400)
+        user_service.create(user_data)
+
+        return "", 201
 
 
-@auth_ns.route('/login/')
-class AuthsView(Resource):
-
-    @auth_ns.expect(auth)
-    @auth_ns.marshal_with(auth_result, code=200)
+@api.route('/login/')
+class AuthLogin(Resource):
     def post(self):
-        data = request.json
-        email = data.get('email', None)
-        password = data.get('password', None)
-
-        if None in [email, password]:
+        """
+        Авторизация пользователя
+        """
+        user_data = request.json
+        if ['email', 'password'] != list(user_data.keys()):
             abort(400)
 
-        tokens = auth_service.generate_tokens(email, password)
-        return tokens, 200
+        email = user_data.get('email')
+        password = user_data.get('password')
+
+        return auth_service.generate_token(email, password), 200
 
     def put(self):
-        data = request.json
-        token = data.get('refresh_token')
-        tokens = auth_service.approve_refresh_token(token)
+        """
+        Обновление токена на основе refresh_token
+        """
+        tokens = request.json
 
-        return tokens, 200
+        if 'refresh_token' not in tokens.keys():
+            abort(400)
+
+        return auth_service.approve_refresh_token(tokens['refresh_token']), 200

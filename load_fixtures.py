@@ -4,9 +4,7 @@ from typing import Any, Dict, List, Type
 from sqlalchemy.exc import IntegrityError
 
 from project.config import config
-from project.dao.model.director import Director
-from project.dao.model.genre import Genre
-from project.dao.model.movie import Movie
+from project.models import Genre, Director, Movie
 from project.server import create_app
 from project.setup.db import db, models
 from project.utils import read_json
@@ -25,8 +23,8 @@ if __name__ == '__main__':
 
     with app.app_context():
         load_data(fixtures['genres'], Genre)
-        load_data(fixtures['movies'], Movie)
         load_data(fixtures['directors'], Director)
+        load_data(fixtures['movies'], Movie)
 
         with suppress(IntegrityError):
             db.session.commit()

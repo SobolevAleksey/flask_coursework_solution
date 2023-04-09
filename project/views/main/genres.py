@@ -1,16 +1,18 @@
 from flask_restx import Namespace, Resource
 
 from project.container import genre_service
+from project.helpers.decorators import auth_required
 from project.setup.api.models import genre
 from project.setup.api.parsers import page_parser
 
-genre_ns = Namespace('genres')
+genres_ns = Namespace('genres', "Получить информацию о жанрах")
 
 
-@genre_ns.route('/')
+@genres_ns.route('/')
 class GenresView(Resource):
-    @genre_ns.expect(page_parser)
-    @genre_ns.marshal_with(genre, as_list=True, code=200, description='OK')
+    @genres_ns.expect(page_parser)
+    @genres_ns.marshal_with(genre, as_list=True, code=200, description='OK')
+    # @auth_required
     def get(self):
         """
         Get all genres.
@@ -18,10 +20,11 @@ class GenresView(Resource):
         return genre_service.get_all(**page_parser.parse_args())
 
 
-@genre_ns.route('/<int:genre_id>/')
+@genres_ns.route('/<int:genre_id>/')
 class GenreView(Resource):
-    @genre_ns.response(404, 'Not Found')
-    @genre_ns.marshal_with(genre, code=200, description='OK')
+    @genres_ns.response(404, 'Not Found')
+    @genres_ns.marshal_with(genre, code=200, description='OK')
+    # @auth_required
     def get(self, genre_id: int):
         """
         Get genre by id.

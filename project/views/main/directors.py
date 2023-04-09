@@ -1,30 +1,32 @@
 from flask_restx import Namespace, Resource
 
+from project.container import director_service
+from project.helpers.decorators import auth_required
 from project.setup.api.models import director
-from project.container import directors_service
 from project.setup.api.parsers import page_parser
 
-director_ns = Namespace('directors')
+directors_ns = Namespace('directors', "Получить информацию о режиссерах")
 
 
-@director_ns.route('/')
+@directors_ns.route('/')
 class DirectorsView(Resource):
-    @director_ns.expect(page_parser)
-    # Декоратор который получает данные и проверяет их формат
-    @director_ns.marshal_with(director, as_list=True, code=200, description='OK')
+    @directors_ns.expect(page_parser)
+    @directors_ns.marshal_with(director, as_list=True, code=200, description='OK')
+    # @auth_required
     def get(self):
         """
         Get all directors.
         """
-        return directors_service.get_all(**page_parser.parse_args())
+        return director_service.get_all(**page_parser.parse_args())
 
 
-@director_ns.route('/<int:director_id>/')
+@directors_ns.route('/<int:director_id>/')
 class DirectorView(Resource):
-    @director_ns.response(404, 'Not Found')
-    @director_ns.marshal_with(director, code=200, description='OK')
+    @directors_ns.response(404, 'Not Found')
+    @directors_ns.marshal_with(director, code=200, description='OK')
+    # @auth_required
     def get(self, director_id: int):
         """
         Get director by id.
         """
-        return directors_service.get_item(director_id)
+        return director_service.get_item(director_id)
